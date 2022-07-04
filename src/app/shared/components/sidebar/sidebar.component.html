@@ -1,0 +1,43 @@
+<mat-nav-list>
+
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Clusters</h2>
+    <mat-radio-group aria-label="Select cluster">
+        <ng-container *ngFor="let cluster of this.service.clusters;let i =index ">
+
+            <a mat-list-item>
+                <mat-radio-button color="primary" value={{i}}>{{cluster.name}}</mat-radio-button>
+            </a>
+
+
+
+
+        </ng-container>
+    </mat-radio-group>
+
+    <mat-divider></mat-divider>
+
+
+    <h2 matSubheader>Summary</h2>
+    <a mat-list-item [routerLink]="'/'">Dashboard</a>
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Nodes</h2>
+
+    <ng-container *ngFor="let member of this.service.nodes() | async;let i =index ">
+
+        <a style="color:#ff4081" [routerLink]="['/node',i]" mat-list-item (click)="this.service.selectedNode=i"
+            *ngIf="member.role=='leader';else second">{{member.name}}</a>
+        <ng-template #second>
+            <a [routerLink]="['/node',i]" (click)="this.service.selectedNode=i" style="color:#3f51b5"
+                mat-list-item>{{member.name}}</a>
+        </ng-template>
+
+
+
+    </ng-container>
+
+</mat-nav-list>

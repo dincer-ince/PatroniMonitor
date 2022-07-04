@@ -1,0 +1,25 @@
+<div *ngIf="this.changed">
+    <ng-container *ngFor="let member of this.service.nodes() | async;let i =index;">
+
+
+        <div *ngIf="i==this.id" style="padding:20px">
+            <app-nodelist [node]="member"></app-nodelist>
+        </div>
+    </ng-container>
+
+
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <mat-card fxFlex="47">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [(update)]="update" style="display:block;width: 100%;height: 100%;">
+            </highcharts-chart>
+        </mat-card>
+        <mat-card fxFlex="47">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2" [(update)]="update" style="display:block;width: 100%;height: 100%;">
+            </highcharts-chart>
+        </mat-card>
+    </div>
+
+
+    <!-- <button (click)="this.load()">asdfgg</button> -->
+</div>

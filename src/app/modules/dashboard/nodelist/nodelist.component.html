@@ -1,0 +1,17 @@
+<mat-card>
+    <mat-grid-list cols="21" rowHeight="30px">
+        <mat-grid-tile colspan="1" *ngIf="node.role=='leader';else second">	<mat-icon>keyboard_voice</mat-icon></mat-grid-tile>
+        <ng-template #second>
+            <mat-grid-tile colspan="1"><mat-icon>headset</mat-icon></mat-grid-tile>
+        </ng-template>
+        <mat-grid-tile colspan="4">{{node.name |titlecase}}</mat-grid-tile>
+        <mat-grid-tile style="color:#ff5295" colspan="4" *ngIf="node.role=='leader'">{{node.role|titlecase}}</mat-grid-tile>
+        <mat-grid-tile style="color:#3f51b5" colspan="4" *ngIf="node.role!='leader'">{{node.role|titlecase}}</mat-grid-tile>
+        <mat-grid-tile style="color:rgb(38, 216, 53)" colspan="4" *ngIf="node.state=='running'">{{node.state|titlecase}}</mat-grid-tile>
+        <mat-grid-tile style="color:rgb(255, 0, 0)" colspan="4" *ngIf="node.state!='running'">{{node.state|titlecase}}</mat-grid-tile>
+        <mat-grid-tile colspan="4">{{node.host}}</mat-grid-tile>
+        <mat-grid-tile colspan="4">{{node.timeline}}</mat-grid-tile>
+        
+    </mat-grid-list>
+    
+</mat-card>

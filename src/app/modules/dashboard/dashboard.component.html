@@ -1,0 +1,106 @@
+<div *ngIf="this.service.getClusterConnection()|async;else second ">
+   
+    <div style="padding:10px" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <mat-card fxFlex="47">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [(update)]="update"
+                style="display:block;width: 100%;height: 100%;">
+            </highcharts-chart>
+        </mat-card>
+        <mat-card fxFlex="47">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions2" [(update)]="update"
+                style="display:block;width: 100%;height: 100%;">
+            </highcharts-chart>
+        </mat-card>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div style="padding:10px" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <mat-card fxFlex="25">
+            <mat-card-subtitle>Cluster Name</mat-card-subtitle>
+            <mat-card-title>{{this.ClusterName}}</mat-card-title>
+        </mat-card>
+        <mat-card fxFlex="25">
+            <mat-card-subtitle>Cluster State</mat-card-subtitle>
+            <mat-card-title style="color:rgb(38, 216, 53)" *ngIf="this.ClusterState=='running'">Running</mat-card-title>
+            <mat-card-title style="color:rgb(255, 0, 0)" *ngIf="this.ClusterState!='running'">Stopped</mat-card-title>
+        </mat-card>
+        
+        <mat-card fxFlex="25">
+            <mat-card-subtitle>Node Lag</mat-card-subtitle>
+            <mat-card-title style="color:rgb(38, 216, 53)" *ngIf="this.ClusterLag==0">Healthy</mat-card-title>
+            <mat-card-title style="color:rgb(255, 0, 0)" *ngIf="this.ClusterLag!=0">{{this.ClusterLag}}</mat-card-title>
+        </mat-card>
+        <mat-card fxFlex="25">
+            <mat-card-subtitle>Patroni Version</mat-card-subtitle>
+            <mat-card-title>{{this.PatroniVersion}}</mat-card-title>
+        </mat-card>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div style="padding:10px" fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+        <div fxFlex="40" fxLayout="column" >
+            <mat-card style="margin-bottom: 20px;" >
+                <mat-card-subtitle>Failover Management</mat-card-subtitle>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <mat-card-title style="color:rgb(38, 216, 53)" *ngIf="!this.pause">Enabled</mat-card-title>
+                    <mat-card-title style="color:rgb(255, 0, 0)" *ngIf="this.pause">Paused</mat-card-title>
+                    <button mat-stroked-button color="warn">{{pause? 'Enable': 'Disable'}} Failover</button>
+                </div>
+
+                
+                    
+                    
+                  
+            </mat-card>
+            <mat-divider></mat-divider>
+            <mat-card style="padding:20px" >
+                <mat-card-subtitle>Number of Replicas</mat-card-subtitle>
+                <mat-card-title style="color:rgb(38, 216, 53)" *ngIf="this.NumberOfReplicas!=0">{{NumberOfReplicas}}</mat-card-title>
+                <mat-card-title style="color:rgb(255, 0, 0)" *ngIf="this.NumberOfReplicas==0">0</mat-card-title>
+            </mat-card>
+            
+        </div>
+        <mat-card fxFlex="35">
+            <highcharts-chart  [Highcharts]="Highcharts" [options]="chartOptions3" [(update)]="update"
+                style="display:block;width: 100%;height: 100%;">
+            </highcharts-chart>
+        </mat-card>
+
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <ng-container *ngFor="let member of this.service.nodes() | async">
+
+
+        <div style="padding:5px;">
+            <app-nodelist [node]="member"></app-nodelist>
+        </div>
+    </ng-container>
+
+    <mat-divider style="padding:5px;"></mat-divider>
+
+    <mat-expansion-panel
+    >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Global Config
+          </mat-panel-title>
+          <mat-panel-description>
+            Configuration settings that are shared between all nodes
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <ngx-json-viewer *ngIf="panelOpenState" [json]="this.config"></ngx-json-viewer>
+        
+      </mat-expansion-panel>
+    
+
+      <div style="min-height:200px"></div>
+</div>
+<ng-template #second>
+    <div>No cluster connection</div>
+</ng-template>
