@@ -24,6 +24,10 @@ export class ClusterService {
 
   patroni=this.http.get("http://localhost:3002/patroni",{responseType:'json',headers:this.headers});
 
+  history= this.http.get("http://localhost:3002/history",{responseType:'text',headers:this.headers});
+
+  fullconfig= this.http.get("http://localhost:3002/fullconfig",{responseType:'text',headers:this.headers});
+
     public GetPatroni(){
       return this.patroni.subscribe(res=>{
         var temp = JSON.stringify(res)
@@ -70,6 +74,9 @@ export class ClusterService {
     
     
     
+  }
+  public loaded(){
+    return of(this.firstTime)
   }
   
   

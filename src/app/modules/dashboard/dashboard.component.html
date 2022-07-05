@@ -48,18 +48,29 @@
                     <mat-card-title style="color:rgb(255, 0, 0)" *ngIf="this.pause">Paused</mat-card-title>
                     <button mat-stroked-button color="warn">{{pause? 'Enable': 'Disable'}} Failover</button>
                 </div>
-
-                
-                    
-                    
-                  
             </mat-card>
-            <mat-divider></mat-divider>
-            <mat-card style="padding:20px" >
+
+            <mat-card style="padding:20px; margin-bottom:20px" >
                 <mat-card-subtitle>Number of Replicas</mat-card-subtitle>
                 <mat-card-title style="color:rgb(38, 216, 53)" *ngIf="this.NumberOfReplicas!=0">{{NumberOfReplicas}}</mat-card-title>
                 <mat-card-title style="color:rgb(255, 0, 0)" *ngIf="this.NumberOfReplicas==0">0</mat-card-title>
             </mat-card>
+            
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <mat-card >
+                    <!-- <mat-card-subtitle>Flush Scheduled Events</mat-card-subtitle> -->
+                    <mat-card-title>
+                        <button mat-stroked-button color="accent">Flush Scheduled Events</button>
+                    </mat-card-title>
+                </mat-card>
+                <mat-card >
+                    <!-- <mat-card-subtitle>Remove Cluster</mat-card-subtitle> -->
+                    <mat-card-title >
+                        <button mat-stroked-button color="primary">Trigger Switchover</button>
+                    </mat-card-title>
+                    
+                </mat-card>
+            </div>
             
         </div>
         <mat-card fxFlex="35">
@@ -72,7 +83,7 @@
     </div>
 
     <mat-divider></mat-divider>
-
+    <mat-spinner style="margin:20px; right:-50%" *ngIf="this.service.loaded() | async"></mat-spinner>
     <ng-container *ngFor="let member of this.service.nodes() | async">
 
 
@@ -97,6 +108,36 @@
         <ngx-json-viewer *ngIf="panelOpenState" [json]="this.config"></ngx-json-viewer>
         
       </mat-expansion-panel>
+
+      <mat-divider style="margin-top:10px;"></mat-divider>
+      <mat-expansion-panel style="margin-top:10px" (click)="this.loadHistory()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Failover History
+            </mat-panel-title>
+            <mat-panel-description>
+              Displays the leader change actions of the cluster
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <mat-spinner *ngIf="history==''"></mat-spinner>
+          <pre>{{this.history}}</pre>
+          
+        </mat-expansion-panel>
+
+
+      <div style="padding:10px" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="20px">
+        
+        <mat-card >
+            <!-- <mat-card-subtitle>Remove Cluster</mat-card-subtitle> -->
+            <mat-card-title >
+                <button mat-raised-button color="warn">Remove Cluster</button>
+            </mat-card-title>
+            
+        </mat-card>
+        
+        
+    </div>
     
 
       <div style="min-height:200px"></div>

@@ -17,6 +17,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { MatExpansionModule }  from "@angular/material/expansion";
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MatButtonModule  } from "@angular/material/button";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatButtonModule  } from "@angular/material/button";
     FlexLayoutModule,
     MatExpansionModule,
     NgxJsonViewerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule,
 
     
   ]

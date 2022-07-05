@@ -60,6 +60,7 @@ export class NodeComponent implements OnInit , OnDestroy {
       this.interval=setInterval(() =>
       { 
         this.AddData()
+        this.loadRam()
         this.update=true;
       },4000)
     }
@@ -73,24 +74,43 @@ export class NodeComponent implements OnInit , OnDestroy {
  
   public updatedata() {return of(this.update)};
 
-  
+  fullConfig=""
+  public loadFullConfig(){
+    this.service.fullconfig.subscribe(res=>{
+      this.fullConfig=res;
+    })
+  }
 
   public AddData() {
     var date = new Date();
     this.service.generalInfoRes.subscribe(res => {
-      
+
       if (this.data.length < 10) {
-        this.data.push([`${date.getMinutes()}-${date.getSeconds()}-${date.getMilliseconds()}`, parseInt(res)])
-        
-        this.update=true;
+        this.data.push([`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`, parseInt(res)])
+
+        this.update = true;
       } else {
         this.data.shift()
-        this.data.push([`${date.getMinutes()}/${date.getSeconds()}-${date.getMilliseconds()}`, parseInt(res)])
-        this.update=true;
+        this.data.push([`${date.getMinutes()}:${date.getSeconds()}`, parseInt(res)])
+        this.update = true;
       }
     })
   }
-
+  public loadRam(){
+    var date=new Date(); 
+    this.service.ram.subscribe(res=> {
+      console.log(res['Memory'])
+      if(this.ram.length<10){
+        this.ram.push([`${date.getMinutes()}-${date.getSeconds()}-${date.getMilliseconds()}`, 100-parseInt(res['Memory'])])
+      }else{
+        this.ram.shift()
+        
+        this.ram.push([`${date.getMinutes()}-${date.getSeconds()}-${date.getMilliseconds()}`, 100-parseInt(res['Memory'])])
+      }
+      
+    })
+  }
+  ram:any[] = [];
   data: any[] = [];
 
   public Chart1() {
@@ -138,7 +158,7 @@ export class NodeComponent implements OnInit , OnDestroy {
     
       this.chartOptions2 = {
         chart: {
-          type: 'line',
+          type: 'area',
         },
         title: {
           text: 'Ram Usage',
@@ -165,7 +185,7 @@ export class NodeComponent implements OnInit , OnDestroy {
         },
         series: [{
           name: 'Usage',
-          data:this.data,
+          data:this.ram,
         }],
       }
     }

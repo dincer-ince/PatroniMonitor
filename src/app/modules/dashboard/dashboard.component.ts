@@ -69,6 +69,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.panelOpenState=true
     })
   }
+  history=""
+  public loadHistory(){
+    this.service.history.subscribe(res=>{
+     var temp=res.length
+     this.history=res
+     
+    })
+  }
 
   public GeneralInfo() {
     var lol
@@ -112,12 +120,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.service.generalInfoRes.subscribe(res => {
 
       if (this.data.length < 10) {
-        this.data.push([`${date.getMinutes()}-${date.getSeconds()}-${date.getMilliseconds()}`, parseInt(res)])
+        this.data.push([`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`, parseInt(res)])
 
         this.update = true;
       } else {
         this.data.shift()
-        this.data.push([`${date.getMinutes()}/${date.getSeconds()}-${date.getMilliseconds()}`, parseInt(res)])
+        this.data.push([`${date.getMinutes()}:${date.getSeconds()}`, parseInt(res)])
         this.update = true;
       }
     })

@@ -7,7 +7,7 @@
         </div>
     </ng-container>
 
-
+    <mat-divider style="margin:20px"></mat-divider>
 
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
         <mat-card fxFlex="47">
@@ -20,6 +20,47 @@
         </mat-card>
     </div>
 
+    <mat-divider style="margin:20px"></mat-divider>
 
-    <!-- <button (click)="this.load()">asdfgg</button> -->
+    <div style="padding:10px" fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+        <mat-card >
+            <mat-card-subtitle style="font-size:x-large">Reload Node</mat-card-subtitle>
+            <mat-card-actions align="end">
+                <button mat-stroked-button color="primary">Reload</button>
+              </mat-card-actions>
+        </mat-card>
+        <mat-card >
+            <mat-card-subtitle style="font-size:x-large">Reinitialize Node</mat-card-subtitle>
+            <mat-card-actions align="end">
+                <button mat-stroked-button color="accent">Reinitialize</button>
+              </mat-card-actions>
+            
+        </mat-card>
+        
+        <mat-card>
+            <mat-card-subtitle style="font-size:x-large">Remove Node</mat-card-subtitle>
+            <mat-card-actions align="end">
+                <button mat-stroked-button color="warn">Remove</button>
+              </mat-card-actions>
+        </mat-card>
+        
+    </div>
+    
+    <mat-divider style="margin-top:10px;"></mat-divider>
+      <mat-expansion-panel style="margin-top:10px" (click)="this.loadFullConfig()">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Full Config
+            </mat-panel-title>
+            <mat-panel-description>
+              Complete configurations of the node
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-divider></mat-divider>
+          <mat-spinner *ngIf="fullConfig==''"></mat-spinner>
+          <pre>{{this.fullConfig}}</pre>
+          
+        </mat-expansion-panel>
+
+        <div style="min-height:100px"></div>
 </div>
