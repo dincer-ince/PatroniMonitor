@@ -1,5 +1,25 @@
 # PatroniMonitor
 
+PatroniMonitor is a web application that connects to your patroni cluster and helps you manage the individual nodes and the cluster's configuration and settings. This project was created as a proof of concept during my internship to present my idea of simplifying and improving the management and monitoring of patroni clusters.
+
+## Screenshots
+
+![Screenshot](screenshots/Capture1.PNG)
+![Screenshot](screenshots/Capture2.PNG)
+![Screenshot](screenshots/Capture3.PNG)
+![Screenshot](screenshots/Capture4.PNG)
+![Screenshot](screenshots/Capture5.PNG)
+![Screenshot](screenshots/Capture6.PNG)
+![Screenshot](screenshots/Capture7.png)
+![Screenshot](screenshots/Capture8.png)
+![Screenshot](screenshots/Capture9.png)
+![Screenshot](screenshots/Capture10.png)
+![Screenshot](screenshots/Capture11.PNG)
+![Screenshot](screenshots/Capture12.PNG)
+
+
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.1.
 
 ## Development server
